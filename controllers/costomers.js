@@ -1,22 +1,9 @@
 
-
-
-/* JUST A TEST
-
-
-
-
-
-
 const axios = require("axios");
-const url = "salescore/customerParties";
 
 exports.get = async (req, res) => {
     try {
-        console.info("here!!!");
         const token =  await this.connect1();
-
-        console.log(token);
         const url = "https://my.jasminsoftware.com/api/290738/290738-0001/salescore/customerParties";
 
         const config = {
@@ -25,12 +12,7 @@ exports.get = async (req, res) => {
             },
         };
 
-        console.log(token);
-
         const customers = await axios.get(url, config);
-
-        console.log(customers.data);
-
         return res.send(customers.data);
     }
     catch (e) {
@@ -43,8 +25,6 @@ exports.getById = async (req, res) => {
     try {
         const id = req.params.id;
         const token =  await this.connect1();
-
-        console.log(token);
         const url = `https://my.jasminsoftware.com/api/290738/290738-0001/salescore/customerParties/${id}`;
 
         const config = {
@@ -74,8 +54,6 @@ exports.create = async (req, res) => {
             "country": "PT"
         }
 
-        console.log(token);
-
         axios.defaults.headers.common = { 'Authorization': 'Bearer ' + token }
         const result = await  axios.post(url, payload);
         res.send("OK!")
@@ -87,9 +65,6 @@ exports.create = async (req, res) => {
 }
 
 exports.connect1 = async () => {
-
-    console.log("token é aqui!")
-
     const result = await axios.post(
         "https://identity.primaverabss.com/connect/token",
         {
@@ -106,10 +81,5 @@ exports.connect1 = async () => {
             },
         }
     );
-
-    console.log(result.data);
-
     return result.data.access_token; //only send token
 }
-
- */
