@@ -1,19 +1,72 @@
 
 const axios = require("axios");
-var request = require('request');
+const url = "salescore/customerParties";
 
+exports.get = async (req, res) => {
+    try {
+        console.info("here!!!");
+        const token =  await this.connect1();
+
+        console.log(token);
+        const url = "https://my.jasminsoftware.com/api/290738/290738-0001/salescore/customerParties";
+
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        };
+
+        console.log(token);
+
+        const customers = await axios.get(url, config);
+
+        console.log(customers.data);
+
+        return res.send(customers.data);
+    }
+    catch (e) {
+
+
+    }
+}
+
+exports.getById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const token =  await this.connect1();
+
+        console.log(token);
+        const url = `https://my.jasminsoftware.com/api/290738/290738-0001/salescore/customerParties/${id}`;
+
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        };
+
+        const customer = await axios.get(url, config);
+        return res.send(customer.data);
+    }
+    catch (err) {
+        res.send(err);
+        return;
+    }
+}
 
 exports.create = async (req, res) => {
     try {
-        const token = await this.connect();
+        const token =  await this.connect1();
         const url = "https://my.jasminsoftware.com/api/290738/290738-0001/salescore/customerParties"
         const payload = {
-            "name": "Luís Filipe Malheiro",
+            "name": "Luís Malheiro Turbo",
             "isExternallyManaged": false,
             "currency": "EUR",
             "isPerson": false,
             "country": "PT"
         }
+
+        console.log(token);
+
         axios.defaults.headers.common = { 'Authorization': 'Bearer ' + token }
         const result = await  axios.post(url, payload);
         res.send("OK!")
@@ -24,29 +77,10 @@ exports.create = async (req, res) => {
     res.send("OK!");
 }
 
-exports.getAll = async (req, res) => {
+exports.connect1 = async () => {
 
-}
+    console.log("token é aqui!")
 
-
-
-
-exports.delete = async (req, res) => {
-
-    res.send("OK!");
-}
-
-
-
-
-axios
-    .get("https://finalspaceapi.com/api/v0/character/?limit=2")
-    .then(function (response) {
-        console.log(response);
-    });
-
-
-exports.connect = async () => {
     const result = await axios.post(
         "https://identity.primaverabss.com/connect/token",
         {
@@ -58,13 +92,13 @@ exports.connect = async () => {
                 "content-type": "application/x-www-form-urlencoded",
             },
             auth: {
-                username: "IPVCPRODBIO",
-                password: "db37c742-71ea-4b1b-b15c-9cd0a1eff864",
+                username: 'IPVCPRODBIO',
+                password: '40fbaffc-d0e2-440e-b34e-b2e8752a41a0',
             },
         }
     );
-    console.log(result.data.access_token)
+
+    console.log(result.data);
+
     return result.data.access_token; //only send token
-
 }
-
