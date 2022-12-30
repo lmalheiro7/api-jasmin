@@ -15,5 +15,4 @@ entitiesRouter.get('/orders', orders.get);
 entitiesRouter.get('/orders/:id', orders.getById);
 entitiesRouter.post('/createOrders', orders.create);
 
-
 module.exports = entitiesRouter;

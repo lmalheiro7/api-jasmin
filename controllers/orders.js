@@ -4,7 +4,7 @@ const axios = require("axios");
 exports.get = async (req, res) => {
     try {
         const token =  await this.connect1();
-        const url = "https://my.jasminsoftware.com/api/290738/290738-0001/sales/orders";
+        const url = "https://my.jasminsoftware.com/api/292559/292559-0001/sales/orders";
 
         const config = {
             headers: {
@@ -25,7 +25,7 @@ exports.getById = async (req, res) => {
     try {
         const id = req.params.id;
         const token =  await this.connect1();
-        const url = `https://my.jasminsoftware.com/api/290738/290738-0001/sales/orders/${id}`;
+        const url = `https://my.jasminsoftware.com/api/2292559/292559-0001/sales/orders/${id}`;
 
         const config = {
             headers: {
@@ -45,7 +45,7 @@ exports.getById = async (req, res) => {
 exports.create = async (req, res) => {
     try {
         const token =  await this.connect1();
-        const url = "https://my.jasminsoftware.com/api/290738/290738-0001/sales/orders"
+        const url = "https://my.jasminsoftware.com/api/292559/292559-0001/sales/orders"
         const payload = {
             "company": "Default",
             "buyerCustomerParty": "0002",
@@ -80,7 +80,7 @@ exports.connect1 = async () => {
             },
             auth: {
                 username: 'IPVCPRODBIO',
-                password: '40fbaffc-d0e2-440e-b34e-b2e8752a41a0',
+                password: '2e51fab2-546f-4001-9a1b-e65290d3eaef',
             },
         }
     );
