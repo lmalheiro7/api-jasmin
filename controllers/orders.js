@@ -84,5 +84,6 @@ exports.connect1 = async () => {
             },
         }
     );
+    console.log(result.data.access_token)
     return result.data.access_token; //only send token
 }

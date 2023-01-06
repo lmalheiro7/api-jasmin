@@ -20,6 +20,27 @@ exports.get = async (req, res) => {
     }
 }
 
+exports.getStock = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const token =  await this.connect1();
+        const url = `https://my.jasminsoftware.com/api/292559/292559-0001/salesCore/salesItems/${id}`;
+
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        };
+
+        const product = await axios.get(url, config);
+        return res.send(product.data["priceListLines"]);
+    }
+    catch (err) {
+        res.send(err);
+        return;
+    }
+}
+
 exports.getById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -46,12 +67,13 @@ exports.create = async (req, res) => {
         const token =  await this.connect1();
         const url = "https://my.jasminsoftware.com/api/292559/292559-0001/salesCore/salesItems"
         const payload = {
-            "itemkey": "batatas",
-            "description" : "batatas 01",
+            "itemkey": "teste",
+            "description" : "teste 01",
             "baseUnit": "KG",
             "itemType": "Service",
             "itemTaxSchema": "IVA-TN",
-            "incomeAccount": "71111"
+            "incomeAccount": "71111",
+            "unit": "43"
         }
 
         axios.defaults.headers.common = { 'Authorization': 'Bearer ' + token }
