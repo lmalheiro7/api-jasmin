@@ -20,6 +20,32 @@ exports.get = async (req, res) => {
     }
 }
 
+
+exports.getProductsRows = async (req, res) => {
+    let aux;
+    try {
+        const token = await this.connect1();
+        const url = "https://my.jasminsoftware.com/api/292559/292559-0001/salesCore/salesItems";
+
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        };
+
+        const product = await axios.get(url, config);
+
+        const filteredData = product.data.map(item => ({
+            description: item.description,
+            priceListLines: item.priceListLines,
+        }));
+
+        return res.send(filteredData);
+    } catch (e) {
+        res.send(e);
+    }
+}
+
 exports.getStock = async (req, res) => {
     try {
         const id = req.params.id;
@@ -33,7 +59,7 @@ exports.getStock = async (req, res) => {
         };
 
         const product = await axios.get(url, config);
-        return res.send(product.data["priceListLines"]);
+        return res.send(product.data["priceListLines"]) + res.send(product.data["amount"]);
     }
     catch (err) {
         res.send(err);
